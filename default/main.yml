@@ -13,14 +13,8 @@
       yum: update_cache=yes
       when: ansible_os_family == "RedHat"
 
-    - name: Run Docker Script
-      shell: curl -sSL https://get.docker.com/ | sh
-
-    - name: Give current user sudo to docker
-      shell: usermod -aG docker ${USER}
-
-    - name: Install Shipyard
-      shell: curl -s https://shipyard-project.com/deploy | PORT=9000 bash -s
+    - name: Install Rancher Key
+      shell: sudo docker run -d --privileged -v /var/run/docker.sock:/var/run/docker.sock rancher/agent:v0.8.2 http://52.19.210.140:8080/v1/scripts/C24A8F5E7C2324A51FAE:1451685600000:s1Bs362HTFVNr42du7crjoCnqo
 
     handlers:
      - name: restart docker
